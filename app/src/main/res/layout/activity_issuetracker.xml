@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/bg_toolbar_color"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:id="@+id/back_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="@string/back_icon"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/issue_tracker"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_top"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <uihelper.ripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:mrl_rippleAlpha="0.2"
+            app:mrl_rippleColor="@color/white"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/btn_apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_roundleave"
+                android:text="@string/submit_issue"
+                android:textColor="@color/white" />
+
+        </uihelper.ripple.MaterialRippleLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fab_layout"
+        android:orientation="vertical">
+
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="1000"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/department"
+                            android:textColor="@color/lightblue" />
+
+                        <LinearLayout
+                            android:padding="8dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/edt_bg_rect"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:id="@+id/ac_department"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:focusable="false"
+                                android:imeOptions="actionSearch"
+                                android:inputType="textAutoComplete"
+                                android:textColor="@color/black">
+                            </Spinner>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/query_type"
+                            android:textColor="@color/lightblue" />
+
+                        <LinearLayout
+                            android:padding="8dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/edt_bg_rect"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Spinner
+                                android:id="@+id/ac_querytype"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:focusable="false"
+                                android:imeOptions="actionSearch"
+                                android:inputType="textAutoComplete"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/description"
+                            android:textColor="@color/lightblue" />
+                        <EditText
+                            android:layout_margin="8dp"
+                            android:id="@+id/ac_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edt_bg_rect"
+                            android:focusable="true"
+                            android:hint="@string/comments_here"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLength="120"
+                            android:maxLines="3"
+                            android:padding="8dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="@string/priority"
+                            android:textColor="@color/lightblue" />
+
+                        <LinearLayout
+                            android:layout_margin="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/edt_bg_rect"
+                            android:padding="8dp">
+                            <Spinner
+                                android:id="@+id/ac_priority"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:focusable="false"
+                                android:imeOptions="actionSearch"
+                                android:inputType="textAutoComplete"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                        <uihelper.ripple.MaterialRippleLayout
+                            android:layout_margin="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            app:mrl_rippleAlpha="0.2"
+                            app:mrl_rippleColor="@color/white"
+                            app:mrl_rippleDelayClick="true"
+                            app:mrl_rippleHover="true"
+                            app:mrl_rippleOverlay="true">
+
+                            <TextView
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:id="@+id/btn_applyleave"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/btn_round_"
+                                android:gravity="center"
+                                android:text="@string/submit"
+                                android:textColor="@color/white" />
+                        </uihelper.ripple.MaterialRippleLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_issuetracker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+

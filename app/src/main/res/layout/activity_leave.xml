@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".attendanceteam.LeaveInformation_Activity">
+
+    <LinearLayout
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/bg_toolbar_color"
+        android:id="@+id/back_icon"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="@string/back_icon"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/leave_information"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <uihelper.ripple.MaterialRippleLayout
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:mrl_rippleAlpha="0.2"
+            app:mrl_rippleColor="@color/white"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/btn_apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_roundleave"
+                android:text="@string/apply_leave"
+                android:textColor="@color/white" />
+
+        </uihelper.ripple.MaterialRippleLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="1000"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <include layout="@layout/activity_applyleave" />
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_leave_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
+

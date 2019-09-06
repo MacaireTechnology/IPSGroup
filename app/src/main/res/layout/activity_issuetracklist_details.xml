@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginBottom="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="8dp"-->
+            <!--android:text="@string/status"-->
+            <!--android:textColor="@color/lightblue" />-->
+        <!--<LinearLayout-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:background="@drawable/edt_bg_rect"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp">-->
+
+            <!--<Spinner-->
+                <!--android:padding="10dp"-->
+                <!--android:id="@+id/spinner_status"-->
+                <!--android:textSize="14sp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:hint="@string/others"-->
+                <!--android:focusable="false"-->
+                <!--android:imeOptions="actionSearch"-->
+                <!--android:inputType="textAutoComplete"-->
+                <!--android:textColor="@color/black" />-->
+        <!--</LinearLayout>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/comments"
+            android:textColor="@color/lightblue" />
+
+        <EditText
+            android:textSize="14sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/et_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg_rect"
+            android:hint="@string/comments_here"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:focusable="true"
+            android:maxLength="120"
+            android:maxLines="3"
+            android:padding="10dp" />
+
+        <uihelper.ripple.MaterialRippleLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:mrl_rippleAlpha="0.2"
+            app:mrl_rippleColor="@color/white"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="true">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:id="@+id/tv_update_leave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_round_"
+                android:gravity="center"
+                android:text="SUBMIT"
+                android:textColor="@color/white" />
+
+        </uihelper.ripple.MaterialRippleLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+

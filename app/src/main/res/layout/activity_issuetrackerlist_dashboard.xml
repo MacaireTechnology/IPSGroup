@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:background="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:id="@+id/tv_lv_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_2019_8_17"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:id="@+id/ll_edit_user"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp">
+                    <TextView
+                        android:id="@+id/tv_edit_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/att_approvalmodify_icon"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_user_icon"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_icon"
+                        android:textColor="@color/gray" />
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_command_icon"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cmd_icon"
+                        android:textColor="@color/gray" />
+                    <TextView
+                        android:id="@+id/tv_command"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="Appointment letter issue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:text="Description"
+                            android:textColor="@color/lightblue" />
+
+                        <EditText
+                            android:textSize="14sp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:id="@+id/et_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edt_bg_rect"
+                            android:hint="Description here"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:focusable="true"
+                            android:maxLength="120"
+                            android:layout_marginBottom="10dp"
+                            android:maxLines="3"
+                            android:padding="10dp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
+                            android:id="@+id/expandable_layout_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:el_duration="1000"
+                            app:el_expanded="false"
+                            app:el_parallax="0.5">
+
+                            <include layout="@layout/activity_issuetracklist_details" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
+                    </LinearLayout>
+
+    </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8c33e6</color>
+    <color name="colorPrimaryDark">#8324E4</color>
+    <color name="colorAccent">#8324E4</color>
+    <color name="black">#000000</color>
+    <color name="lightblack">#bfbfbf</color>
+    <color name="white">#FFFFFF</color>
+    <color name="pink">#8324E4</color>
+    <color name="loading_pink">#8c33e6</color>
+    <color name="grey">#D3D3D3</color>
+    <color name="lightblue">#6184EE</color>
+    <color name="loading_blue">#7594f0</color>
+    <color name="blue">#0000ff</color>
+    <color name="mediumblue">#6666ff</color>
+    <color name="green">#008000</color>
+    <color name="green_">#339966</color>
+    <color name="red">#FF0000</color>
+    <color name="red_medium">#ff4d4d</color>
+    <color name="gray">#666666</color>
+    <color name="leave_type">#faad81</color>
+    <color name="reject_reason">#98e5f9</color>
+    <color name="six_e">#6e6e6e</color>
+    <color name="light_gray">#6f6f6f</color>
+    <color name="light_gray_">#e6e6e6</color>
+    <color name="blue_">#5353e8</color>
+    <color name="light_white">#f1f1f1</color>
+    <color name="pending">#F37200</color>
+    <color name="transparent_color">#B949ED</color>
+
+</resources>
