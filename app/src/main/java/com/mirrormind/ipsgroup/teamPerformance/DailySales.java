@@ -189,7 +189,7 @@ public class DailySales extends AppCompatActivity implements View.OnClickListene
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
             String formattedDate = df.format(c);
 
-            allItems.put("EmpID", SharedPreference.getDefaults(this,TAG_ACCESS_KEY));
+            allItems.put("EmpID", SharedPreference.getDefaults(this,TAG_EMP_ID));
             allItems.put("CustMobileNo", tv_mobile_no.getText().toString());
             allItems.put("NameOfOutlet", "NameOfOutlet");
             allItems.put("ContactPerson", tv_contact_person.getText().toString());

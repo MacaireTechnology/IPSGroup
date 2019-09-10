@@ -41,7 +41,7 @@ import uihelper.sharedPref.SharedPreference;
 public class TeamAttendance extends AppCompatActivity implements View.OnClickListener , GlobalData {
 
     Activity mActivity;
-    TextView tv_back,tv_back_search,tv_search_icon,tv_no_data_found;
+    TextView tv_back,tv_header_name,tv_back_search,tv_search_icon,tv_no_data_found;
     RecyclerView rv_attend;
     TeamAttendanceAdapter teamAttendanceAdapter;
     ApiInterface apiInterface;
@@ -56,6 +56,7 @@ public class TeamAttendance extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_attendance_approval);
 
         tv_back = findViewById(R.id.tv_back);
+        tv_header_name = findViewById(R.id.tv_header_name);
         tv_no_data_found = findViewById(R.id.tv_no_data_found);
         tv_back_search = findViewById(R.id.tv_back_search);
         tv_search_icon = findViewById(R.id.tv_search_icon);
@@ -72,6 +73,8 @@ public class TeamAttendance extends AppCompatActivity implements View.OnClickLis
         Icomoon.imageLogo.apply(this, tv_back);
         Icomoon.imageLogo.apply(this, tv_back_search);
         Icomoon.imageLogo.apply(this, tv_search_icon);
+
+        tv_header_name.setText("Team Attendance");
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         rv_attend = findViewById(R.id.rv_attend);
@@ -104,9 +107,7 @@ public class TeamAttendance extends AppCompatActivity implements View.OnClickLis
 
         try {
             myDialog.show();
-
             Call<TeamAttendRes> teamAttendResCall = apiInterface.doTeamAttend(SharedPreference.getDefaults(this,TAG_EMP_ID));
-
             teamAttendResCall.enqueue(new Callback<TeamAttendRes>() {
                 @Override
                 public void onResponse(@NonNull Call<TeamAttendRes> call,@NonNull Response<TeamAttendRes> response) {

@@ -25,7 +25,9 @@ import android.widget.TextView;
 
 import com.mirrormind.ipsgroup.alarm_sec.RemindersIntentManager;
 import com.mirrormind.ipsgroup.attendanceteam.TrackTeam;
+import com.mirrormind.ipsgroup.backgroundservice.NotificationService;
 import com.mirrormind.ipsgroup.fragment.AdminMng_frg;
+import com.mirrormind.ipsgroup.fragment.AnnouncementFrg;
 import com.mirrormind.ipsgroup.fragment.Atten_frg;
 import com.mirrormind.ipsgroup.fragment.ContactFrg;
 import com.mirrormind.ipsgroup.fragment.Profile_frg;
@@ -37,10 +39,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Random;
 
 import db.DatabaseHelper;
 import uihelper.Interface.RecyclerClick;
 import uihelper.icomoon.Icomoon;
+import uihelper.picker.OnCurrentDay;
 import uihelper.sharedPref.GlobalData;
 import uihelper.sharedPref.SharedPreference;
 
@@ -88,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WAKE_LOCK}, WAKE_LOCK_REQUEST_CODE);
         }
     }
+
     private void initID() {
+
         tv_announce = findViewById(R.id.tv_announce);
         tv_contact = findViewById(R.id.tv_contact);
         tv_home = findViewById(R.id.tv_home);
@@ -127,6 +133,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rv_list_dashboard.setAdapter(dashboardAdapter = new DashboardAdapter(getApplicationContext(),
                 dashboardText, dashboardIcon));
 
+        Random random = new Random();
+        String randomNo = String.format(Locale.ENGLISH,"%04d", random.nextInt(10000));
+        Log.e(TAG,"randomNo "+randomNo);
+
     }
 
     private void initIcon() {
@@ -136,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Icomoon.imageLogo.apply(this, tv_home_icon);
         Icomoon.imageLogo.apply(this, tv_team_icon);
         Icomoon.imageLogo.apply(this, tv_profile_icon);
-
     }
 
     private void initListener() {
@@ -178,6 +187,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 })
         );
 
+        tv_announce.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_announce_icon.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_contact.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_contact_icon.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_home.setTextColor(getResources().getColor(R.color.lightblue));
+        tv_home_icon.setTextColor(getResources().getColor(R.color.lightblue));
+        tv_team.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_team_icon.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_profile.setTextColor(getResources().getColor(R.color.light_gray));
+        tv_profile_icon.setTextColor(getResources().getColor(R.color.light_gray));
+
+        tv_announce.setTypeface(Typeface.DEFAULT);
+        tv_announce_icon.setTypeface(Typeface.DEFAULT);
+        tv_contact.setTypeface(Typeface.DEFAULT);
+        tv_contact_icon.setTypeface(Typeface.DEFAULT);
+        tv_home.setTypeface(tv_home.getTypeface(), Typeface.BOLD);
+        tv_home_icon.setTypeface(tv_home_icon.getTypeface(), Typeface.BOLD);
+        tv_team.setTypeface(Typeface.DEFAULT);
+        tv_team_icon.setTypeface(Typeface.DEFAULT);
+        tv_profile.setTypeface(Typeface.DEFAULT);
+        tv_profile_icon.setTypeface(Typeface.DEFAULT);
+        initIcon();
+
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         Log.e(TAG,"size "+databaseHelper.getClockInOut().size());
 
@@ -190,16 +222,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()) {
             case R.id.ll_announce:
-                tv_announce.setTextColor(getResources().getColor(R.color.lightblack));
+
+                mFragment = new AnnouncementFrg();
+                displaySelectedFragment(mFragment);
+
+                tv_announce.setTextColor(getResources().getColor(R.color.lightblue));
                 tv_announce_icon.setTextColor(getResources().getColor(R.color.lightblue));
-                tv_contact.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile_icon.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_contact.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile_icon.setTextColor(getResources().getColor(R.color.light_gray));
 
                 tv_announce.setTypeface(tv_announce.getTypeface(), Typeface.BOLD);
                 tv_announce_icon.setTypeface(tv_announce_icon.getTypeface(), Typeface.BOLD);
@@ -216,16 +252,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_contact:
                 mFragment = new ContactFrg();
                 displaySelectedFragment(mFragment);
-                tv_announce.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_announce_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_announce.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_announce_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact.setTextColor(getResources().getColor(R.color.lightblue));
                 tv_contact_icon.setTextColor(getResources().getColor(R.color.lightblue));
-                tv_home.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile_icon.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_home.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile_icon.setTextColor(getResources().getColor(R.color.light_gray));
 
                 tv_announce.setTypeface(Typeface.DEFAULT);
                 tv_announce_icon.setTypeface(Typeface.DEFAULT);
@@ -244,16 +280,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
-                tv_announce.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_announce_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_announce.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_announce_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home.setTextColor(getResources().getColor(R.color.lightblue));
                 tv_home_icon.setTextColor(getResources().getColor(R.color.lightblue));
-                tv_team.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile_icon.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_team.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile_icon.setTextColor(getResources().getColor(R.color.light_gray));
 
                 tv_announce.setTypeface(Typeface.DEFAULT);
                 tv_announce_icon.setTypeface(Typeface.DEFAULT);
@@ -270,16 +306,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ll_team:
                 startActivity(new Intent(getApplicationContext(), TrackTeam.class));
-                tv_announce.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_announce_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_announce.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_announce_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team.setTextColor(getResources().getColor(R.color.lightblue));
                 tv_team_icon.setTextColor(getResources().getColor(R.color.lightblue));
-                tv_profile.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile_icon.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_profile.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile_icon.setTextColor(getResources().getColor(R.color.light_gray));
 
                 tv_announce.setTypeface(Typeface.DEFAULT);
                 tv_announce_icon.setTypeface(Typeface.DEFAULT);
@@ -296,15 +332,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_profile:
                 mFragment = new Profile_frg();
                 displaySelectedFragment(mFragment);
-                tv_announce.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_announce_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_contact_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_home_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_team_icon.setTextColor(getResources().getColor(R.color.lightblack));
-                tv_profile.setTextColor(getResources().getColor(R.color.lightblack));
+                tv_announce.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_announce_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_contact_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_home_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_team_icon.setTextColor(getResources().getColor(R.color.light_gray));
+                tv_profile.setTextColor(getResources().getColor(R.color.lightblue));
                 tv_profile_icon.setTextColor(getResources().getColor(R.color.lightblue));
 
                 tv_announce.setTypeface(Typeface.DEFAULT);
@@ -335,6 +371,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getFragmentManager().popBackStack();
     }
     void setUpNotification() {
+
+        Intent serviceIntent = new Intent(this, NotificationService.class);
+        serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
+        ContextCompat.startForegroundService(this, serviceIntent);
+        SharedPreference.setDefaults(this,TAG_LAST_PUNCH_TIME, OnCurrentDay.getTime());
+
         Long time = new GregorianCalendar().getTimeInMillis() + 60 * 1000;
         RemindersIntentManager remindersIntentManager = RemindersIntentManager.getInstance(this);
 

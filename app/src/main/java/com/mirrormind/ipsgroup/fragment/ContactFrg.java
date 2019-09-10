@@ -1,32 +1,46 @@
 package com.mirrormind.ipsgroup.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mirrormind.ipsgroup.Dialog.DialogsUtils;
 import com.mirrormind.ipsgroup.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.ApiClient;
 import retrofit.ApiInterface;
+import retrofit.response.approval_attend.ApprovalAttendDetails;
 import retrofit.response.contact.ContactDetails;
 import retrofit.response.contact.ContactRes;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uihelper.SnackbarIps;
 import uihelper.icomoon.Icomoon;
+import uihelper.onKeyboard.OnKeyboardHide;
 
 public class ContactFrg extends Fragment implements View.OnClickListener {
 
@@ -34,9 +48,12 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
     Activity mActivity;
     RecyclerView rv_adminmng_dashboard;
     View view;
-    TextView tv_back,tv_header_name;
+    TextView tv_back,tv_header_name,tv_search_icon,tv_back_search;
     ApiInterface apiInterface;
-
+    LinearLayout ll_header,ll_search;
+    EditText et_search;
+    ContactAdapter contactAdapter;
+    ProgressDialog myDialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,14 +66,47 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
         rv_adminmng_dashboard = view.findViewById(R.id.rv_adminmng_dashboard);
         tv_back = view.findViewById(R.id.tv_back);
         tv_header_name = view.findViewById(R.id.tv_header_name);
+        tv_search_icon = view.findViewById(R.id.tv_search_icon);
+        ll_header = view.findViewById(R.id.ll_header);
+        ll_search = view.findViewById(R.id.ll_search);
+        et_search = view.findViewById(R.id.et_search);
+        tv_back_search = view.findViewById(R.id.tv_back_search);
 
         tv_header_name.setText("Contacts");
         tv_back.setOnClickListener(this);
         view.findViewById(R.id.fab_layout).setVisibility(View.GONE);
+        view.findViewById(R.id.tv_search_icon).setVisibility(View.VISIBLE);
 
         Icomoon.imageLogo.apply(mActivity, tv_back);
+        Icomoon.imageLogo.apply(mActivity, tv_search_icon);
+        Icomoon.imageLogo.apply(mActivity, tv_back_search);
+
+        view.findViewById(R.id.ll_header).setOnClickListener(this);
+        view.findViewById(R.id.ll_search).setOnClickListener(this);
+        view.findViewById(R.id.tv_search_icon).setOnClickListener(this);
+        view.findViewById(R.id.tv_back_search).setOnClickListener(this);
 
         rv_adminmng_dashboard.setLayoutManager(new GridLayoutManager(mActivity, 2));
+
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (contactAdapter!=null)
+                    contactAdapter.getFilter().filter(charSequence);
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (contactAdapter!=null)
+                    contactAdapter.getFilter().filter(charSequence);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        myDialog = DialogsUtils.showProgressDialog(mActivity, "Listing Contacts");
+        myDialog.show();
 
         doCallContact();
 
@@ -72,14 +122,26 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
                 if (response.code() == 200){
                     if (response.body().getStatusCode().equals("00")) {
                         if (response.body().getReturnValue().size()>0){
-                            rv_adminmng_dashboard.setAdapter(new ContactAdapter(response.body().getReturnValue()));
+                            rv_adminmng_dashboard.setAdapter(contactAdapter = new ContactAdapter(response.body().getReturnValue()));
+                            if (myDialog!=null && myDialog.isShowing()) {
+                                myDialog.dismiss();
+                            }
                         }else {
+                            if (myDialog!=null && myDialog.isShowing()) {
+                                myDialog.dismiss();
+                            }
                             Log.e(TAG,"No Contact list");
                         }
                     }else {
+                        if (myDialog!=null && myDialog.isShowing()) {
+                            myDialog.dismiss();
+                        }
                         Log.e(TAG,"No Data Else part");
                     }
                 }else {
+                    if (myDialog!=null && myDialog.isShowing()) {
+                        myDialog.dismiss();
+                    }
                     Log.e(TAG,"Server Error");
                 }
             }
@@ -87,10 +149,12 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(@NonNull Call<ContactRes> call,@NonNull Throwable t) {
                 Log.e(TAG,"Internet or Server Error");
+                if (myDialog!=null && myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
             }
         });
     }
-
 
     @Override
     public void onClick(View view) {
@@ -99,15 +163,27 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
             case R.id.tv_back:
                 getFragmentManager().popBackStack();
                 break;
+            case R.id.tv_back_search:
+                new OnKeyboardHide(mActivity,et_search);
+                et_search.setText("");
+                ll_header.setVisibility(View.VISIBLE);
+                ll_search.setVisibility(View.GONE);
+                break;
+            case R.id.tv_search_icon:
+                ll_header.setVisibility(View.GONE);
+                ll_search.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
-    private class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
+    private class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder>
+            implements Filterable {
 
-        List<ContactDetails> returnValue;
+        List<ContactDetails> returnValue,listSearchView;
 
         public ContactAdapter(List<ContactDetails> returnValue) {
             this.returnValue = returnValue;
+            this.listSearchView = returnValue;
         }
 
         @NonNull
@@ -119,7 +195,7 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
             if (returnValue.get(position).getEmpFullName()!=null &&
                     !returnValue.get(position).getEmpFullName().isEmpty() &&
@@ -162,6 +238,36 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
                         .error(R.drawable.placeholder_small)
                         .dontAnimate().centerCrop().into(holder.iv_profile);
             }
+
+            holder.tv_username.setSelected(true);
+            holder.tv_department.setSelected(true);
+            holder.tv_call.setSelected(true);
+            holder.tv_mail.setSelected(true);
+
+            holder.ll_call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (returnValue.get(holder.getAdapterPosition()).getMobileNumber()!=null &&
+                            !returnValue.get(holder.getAdapterPosition()).getMobileNumber().isEmpty() &&
+                            !returnValue.get(holder.getAdapterPosition()).getMobileNumber().equals("")){
+                        doCallDialog(returnValue.get(holder.getAdapterPosition()).getMobileNumber());
+                    }else {
+                        new SnackbarIps(tv_back,"No valid Phone Number");
+                    }
+                }
+            });
+            holder.ll_mail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (returnValue.get(holder.getAdapterPosition()).getPrimaryEmail()!=null &&
+                            !returnValue.get(holder.getAdapterPosition()).getPrimaryEmail().isEmpty() &&
+                            !returnValue.get(holder.getAdapterPosition()).getPrimaryEmail().equals("")){
+                        doMailDialog(returnValue.get(holder.getAdapterPosition()).getPrimaryEmail());
+                    }else {
+                        new SnackbarIps(tv_back,"No valid Mail ID");
+                    }
+                }
+            });
         }
 
         @Override
@@ -175,6 +281,7 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
            TextView tv_call_icon,tv_mail_icon,tv_department_icon;
            TextView tv_username,tv_call,tv_mail,tv_department;
            ImageView iv_profile;
+           LinearLayout ll_call,ll_mail;
 
             public MyViewHolder(View itemView) {
                 super(itemView);
@@ -187,6 +294,8 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
                 tv_call = itemView.findViewById(R.id.tv_call);
                 tv_mail = itemView.findViewById(R.id.tv_mail);
                 iv_profile = itemView.findViewById(R.id.iv_profile);
+                ll_call = itemView.findViewById(R.id.ll_call);
+                ll_mail = itemView.findViewById(R.id.ll_mail);
 
                 Icomoon.imageLogo.apply(mActivity,tv_call_icon);
                 Icomoon.imageLogo.apply(mActivity,tv_mail_icon);
@@ -194,6 +303,53 @@ public class ContactFrg extends Fragment implements View.OnClickListener {
 
             }
         }
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+                    String charString = charSequence.toString();
+                    if (charString.isEmpty()) {
+                        returnValue = listSearchView;
+                    } else {
+                        List<ContactDetails> filteredList = new ArrayList<>();
+                        for (ContactDetails row : listSearchView) {
+
+                            if ((row.getEmpFullName()!=null && row.getEmpFullName().toLowerCase().contains(charString.toLowerCase())) ||
+                                    (row.getDepartment()!=null && row.getDepartment().toLowerCase().contains(charString.toLowerCase())) ||
+                                    (row.getBranchName()!=null && row.getBranchName().toLowerCase().contains(charString.toLowerCase())) ||
+                                    (row.getMobileNumber()!=null && row.getMobileNumber().toLowerCase().contains(charString.toLowerCase())) ||
+                                    (row.getPrimaryEmail()!=null && row.getPrimaryEmail().toLowerCase().contains(charString.toLowerCase()))) {
+                                filteredList.add(row);
+                            }
+                        }
+                        returnValue = filteredList;
+                    }
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = returnValue;
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    returnValue = (ArrayList<ContactDetails>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
+        }
+
+    }
+    public void doCallDialog(String phoneNo){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+phoneNo));
+        startActivity(intent);
+    }
+    public void doMailDialog(String mailId){
+        Intent send = new Intent(Intent.ACTION_SENDTO);
+        String uriText = "mailto:" + Uri.encode(mailId);
+        Uri uri = Uri.parse(uriText);
+        send.setData(uri);
+        startActivity(Intent.createChooser(send, "Send mail..."));
     }
 
 }

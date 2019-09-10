@@ -218,7 +218,7 @@ public class LeaveApproval extends AppCompatActivity implements View.OnClickList
         ArrayAdapter<String> planStatus;
         String selectStatusTypeId="";
 
-        public LeaveATAdapter(List<LeaveApprovalDetails> returnValue) {
+        private LeaveATAdapter(List<LeaveApprovalDetails> returnValue) {
             this.returnValue = returnValue;
             this.listSearchView = returnValue;
             planStatus = new ArrayAdapter<String>(mActivity,android.R.layout.simple_spinner_item,LEAVE_PLAN);
@@ -345,36 +345,37 @@ public class LeaveApproval extends AppCompatActivity implements View.OnClickList
                         planStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         holder.spinner_plan_un_plan.setAdapter(planStatus);
 
-                        holder.spinner_plan_un_plan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                Log.e(TAG,"STATUS[position]--------> "+LEAVE_PLAN[position]);
-                                selectPlan = LEAVE_PLAN[position];
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
-                        holder.spinner_status_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                if (statusTypeDetails!=null && statusTypeDetails.size()>0) {
-                                    selectStatusTypeId = statusTypeDetails.get(position).getStatusID();
-                                    Log.e(TAG,"getLeaveID "+statusTypeDetails.get(position).getStatusCode());
-                                    holder.tv_status_type.setText(statusTypeDetails.get(position).getStatusCode());
-                                }else {
-                                    new SnackbarIps(holder.tv_status_type,"No Status Type Available");
-                                }
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
                         holder.expandableLayout.expand();
                     }
+                }
+            });
+
+            holder.spinner_plan_un_plan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Log.e(TAG,"STATUS[position]--------> "+LEAVE_PLAN[position]);
+                    selectPlan = LEAVE_PLAN[position];
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            holder.spinner_status_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (statusTypeDetails!=null && statusTypeDetails.size()>0) {
+                        selectStatusTypeId = statusTypeDetails.get(position).getStatusID();
+                        Log.e(TAG,"getLeaveID "+statusTypeDetails.get(position).getStatusCode());
+                        holder.tv_status_type.setText(statusTypeDetails.get(position).getStatusCode());
+                    }else {
+                        new SnackbarIps(holder.tv_status_type,"No Status Type Available");
+                    }
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
                 }
             });
 
@@ -600,11 +601,11 @@ public class LeaveApproval extends AppCompatActivity implements View.OnClickList
     public class CustomAdapter extends BaseAdapter {
 
         List<StatusTypeDetails> leaveTypeDetails;
-        LayoutInflater inflter;
+        LayoutInflater inflater;
 
         private CustomAdapter(List<StatusTypeDetails> leaveTypeDetails) {
             this.leaveTypeDetails = leaveTypeDetails;
-            inflter = (LayoutInflater.from(mActivity));
+            inflater = (LayoutInflater.from(mActivity));
         }
 
         @Override
@@ -625,7 +626,7 @@ public class LeaveApproval extends AppCompatActivity implements View.OnClickList
         @SuppressLint("ViewHolder")
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = inflter.inflate(R.layout.adapter_spinner, null);
+            view = inflater.inflate(R.layout.adapter_spinner, null);
             TextView tv_leave_type = view.findViewById(R.id.tv_leave_type);
             tv_leave_type.setText(leaveTypeDetails.get(i).getStatusCode());
             return view;

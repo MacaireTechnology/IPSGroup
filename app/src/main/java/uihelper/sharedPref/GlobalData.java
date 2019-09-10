@@ -2,8 +2,6 @@ package uihelper.sharedPref;
 
 public interface GlobalData {
 
-    String TAG_SELECT_LANG = "select_language";
-    String TAG_ACCESS_KEY = "access_key";
     String TAG_IN_OUT_STATUS = "clock_in_out_status";
     String TAG_CLOCK_OUT_ID = "clock_out_id";
     String TAG_EMP_ID = "00000";
@@ -44,8 +42,18 @@ public interface GlobalData {
 
     String TAG_ALARM_START_TIME = "alarm_start_time";
     String TAG_ALARM_END_TIME = "alarm_end_time";
+    String TAG_LAST_PUNCH_TIME = "last_punch_in_time";
 
     String TAG_SHARE_LAT = "share_lat";
     String TAG_SHARE_LONG = "share_long";
+    String TAG_SHARE_NAME = "share_name";
+    String TAG_SHARE_EMP_ID = "share_emp_id";
+
+    String TAG_EMP_NUMBER = "emp_no";
+    String TAG_EMP_DESIGNATION = "designation";
+    String TAG_EMP_EMAIL_ID = "email_id";
+    String TAG_EMP_DEPT = "emp_dept";
+    String TAG_EMP_TYPE = "emp_type";
+    String TAG_EMP_IMAGE = "emp_image";
 
 }

@@ -109,13 +109,26 @@
                 android:text="@string/fing_locationicon_color"
                 android:textColor="@color/black" />
             <TextView
+                android:layout_weight="1"
                 android:textSize="12sp"
                 android:padding="5dp"
                 android:layout_gravity="center"
                 android:id="@+id/tv_clock_in_loc"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="hello world " />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                app:civ_circle_background_color="@color/light_gray"
+                app:civ_border_color="@color/light_gray"
+                app:civ_border_overlay="true"
+                android:textSize="12sp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/civ_in_time"
+                android:layout_width="30sp"
+                android:layout_height="30sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -143,13 +156,25 @@
                 android:text="@string/fing_locationicon_color"
                 android:textColor="@color/black" />
             <TextView
+                android:layout_weight="1"
                 android:textSize="12sp"
                 android:padding="5dp"
                 android:layout_gravity="center"
                 android:id="@+id/tv_clock_out_loc"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="hello world " />
+            <de.hdodenhof.circleimageview.CircleImageView
+                app:civ_circle_background_color="@color/light_gray"
+                app:civ_border_color="@color/light_gray"
+                app:civ_border_overlay="true"
+                android:textSize="12sp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/civ_out_time"
+                android:layout_width="30sp"
+                android:layout_height="30sp"/>
         </LinearLayout>
 
     </LinearLayout>

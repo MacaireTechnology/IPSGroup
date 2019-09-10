@@ -7,24 +7,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="180dp"
-                android:layout_height="230dp">
-
-
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
                 <RelativeLayout
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -32,7 +28,7 @@
                     <ImageView
                         android:id="@+id/iv_profile"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_hr_help"
+                        android:src="@drawable/placeholder_small"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <LinearLayout
@@ -43,8 +39,10 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_trans_view">
                         <TextView
-                            android:paddingLeft="2dp"
-                            android:paddingRight="2dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
                             android:id="@+id/tv_username"
                             android:layout_gravity="bottom"
                             android:gravity="center"
@@ -54,6 +52,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <LinearLayout
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
@@ -63,11 +63,15 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:text="@string/call_icon"
+                                android:textSize="11sp"
+                                tools:ignore="SmallSp"
+                                android:text="@string/department_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
+                                android:marqueeRepeatLimit="3"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
                                 android:id="@+id/tv_department"
@@ -80,7 +84,6 @@
                                 android:layout_height="wrap_content"
                                 tools:ignore="SmallSp" />
                         </LinearLayout>
-
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
@@ -89,62 +92,73 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/ll_call"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
                         android:layout_margin="3dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/tv_call_icon"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            android:textSize="16sp"
+                            android:textSize="11sp"
+                            tools:ignore="SmallSp"
                             android:text="@string/call_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:marqueeRepeatLimit="3"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
                             android:id="@+id/tv_call"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
+                            android:textSize="11sp"
+                            tools:ignore="SmallSp"
                             android:text="@string/approval_comments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/ll_mail"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
                         android:layout_margin="3dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/tv_mail_icon"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            android:textSize="16sp"
+                            android:textSize="11sp"
+                            tools:ignore="SmallSp"
                             android:text="@string/mail1_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:marqueeRepeatLimit="3"
                             android:id="@+id/tv_mail"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
+                            android:textSize="11sp"
+                            tools:ignore="SmallSp"
                             android:text="@string/approval_comments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

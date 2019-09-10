@@ -195,6 +195,18 @@
     <string name="reason">Reason</string>
     <string name="adjust_attendance">Adjust Attendance</string>
     <string name="in_google_maps_navigation">In Google Maps Navigation</string>
+    <string name="select_department">Select Department</string>
+    <string name="select_query_type">Select Query Type</string>
+    <string name="issue">Issue</string>
+    <string name="announcement">Announcement</string>
+    <string name="training">Training</string>
+    <string name="description_location_must_be_on_high_accuracy">Description: Location must be on High Accuracy</string>
+    <string name="description_training_completed">Description: Training Completed</string>
+    <string name="update_the_application">Update the Application</string>
+    <string name="description_dear_all_team_kindly_update_your_ips_tracker_mobile_add">Description: Dear all team, Kindly update your IPS Tracker mobile add</string>
+    <string name="select_status">Select Status</string>
+    <string name="type">Type</string>
+    <string name="position">Position</string>
 
     <string-array name="arrayvalues">
         <item>hello</item>

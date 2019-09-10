@@ -11,9 +11,15 @@ public class ReturnValue {
     @SerializedName("ClockInDateTime")
     @Expose
     private String clockInDateTime;
+    @SerializedName("ClockInIMG")
+    @Expose
+    private String clockInIMG;
     @SerializedName("ClockOutDateTime")
     @Expose
     private String clockOutDateTime;
+    @SerializedName("ClockOutIMG")
+    @Expose
+    private String clockOutIMG;
     @SerializedName("ClockInDT")
     @Expose
     private String clockInDT;
@@ -46,12 +52,28 @@ public class ReturnValue {
         this.clockInDateTime = clockInDateTime;
     }
 
+    public String getClockInIMG() {
+        return clockInIMG;
+    }
+
+    public void setClockInIMG(String clockInIMG) {
+        this.clockInIMG = clockInIMG;
+    }
+
     public String getClockOutDateTime() {
         return clockOutDateTime;
     }
 
     public void setClockOutDateTime(String clockOutDateTime) {
         this.clockOutDateTime = clockOutDateTime;
+    }
+
+    public String getClockOutIMG() {
+        return clockOutIMG;
+    }
+
+    public void setClockOutIMG(String clockOutIMG) {
+        this.clockOutIMG = clockOutIMG;
     }
 
     public String getClockInDT() {

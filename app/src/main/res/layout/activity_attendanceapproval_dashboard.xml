@@ -200,8 +200,6 @@
                             android:gravity="center"
                             android:text="@string/_10_00" />
                     </LinearLayout>
-
-
                 </LinearLayout>
                 <net.cachapa.expandablelayout.ExpandableLayout
                     android:id="@+id/expandable_layout_1"

@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static final String BASE_URL = "http://AppIPS.securehostdns.com:11029/API/";
+    private static final String BASE_OTP = "http://tsms.innovatorwebsolutions.com/";
 
     public static Retrofit getClient() {
 
@@ -28,6 +29,17 @@ public class ApiClient {
                 .create();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(getUnsafeOkHttpClient().build())
+                .build();
+    }
+    public static Retrofit getClientOTP() {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        return new Retrofit.Builder()
+                .baseUrl(BASE_OTP)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getUnsafeOkHttpClient().build())
                 .build();

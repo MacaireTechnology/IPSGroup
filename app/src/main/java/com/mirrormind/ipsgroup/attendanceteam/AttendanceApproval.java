@@ -219,7 +219,6 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
         String selectStatusTypeId="";
 
         private AttendanceATAdapter(List<ApprovalAttendDetails> returnValue) {
-
             this.returnValue = returnValue;
             this.listSearchView = returnValue;
         }
@@ -311,7 +310,6 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
                             public void onClick(View v) {
                                 Log.e(TAG,"tv_out_time ");
                                 new OnTimePicker(mActivity,holder.tv_in_time);
-//                                showHourPicker(holder.tv_in_time);
                             }
                         });
                         holder.ll_out_time.setOnClickListener(new View.OnClickListener() {
@@ -319,28 +317,29 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
                             public void onClick(View v) {
                                 Log.e(TAG,"tv_out_time ");
                                 new OnTimePicker(mActivity,holder.tv_out_time);
-//                                showHourPicker(holder.tv_out_time);
                             }
                         });
-                        holder.spinner_leave_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                                if (statusTypeDetails!=null && statusTypeDetails.size()>0) {
-                                    selectStatusTypeId = statusTypeDetails.get(position).getStatusID();
-                                    Log.e(TAG,"getLeaveID "+statusTypeDetails.get(position).getStatusCode());
-                                    holder.tv_status_type.setText(statusTypeDetails.get(position).getStatusCode());
-                                }else {
-                                    new SnackbarIps(holder.tv_status_type,"No Status Type Available");
-                                }
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
                         holder.expandableLayout.expand();
                     }
+                }
+            });
+
+            holder.spinner_leave_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (statusTypeDetails!=null && statusTypeDetails.size()>0) {
+                        selectStatusTypeId = statusTypeDetails.get(position).getStatusID();
+                        Log.e(TAG,"getLeaveID "+statusTypeDetails.get(position).getStatusCode());
+                        holder.tv_status_type.setText(statusTypeDetails.get(position).getStatusCode());
+                    }else {
+                        new SnackbarIps(holder.tv_status_type,"No Status Type Available");
+                    }
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
                 }
             });
 
@@ -350,16 +349,15 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
 
                     new OnKeyboardHide(AttendanceApproval.this,holder.et_comment);
 
-                    if (selectStatusTypeId!=null && selectStatusTypeId.equals("") && selectStatusTypeId.isEmpty()){
+                    if (selectStatusTypeId!=null && selectStatusTypeId.equals("") && selectStatusTypeId.isEmpty()) {
                         new SnackbarIps(holder.et_comment,"Select Status");
-                    }else if (holder.et_comment.getText().toString().equals("") ||
+                    } else if (holder.et_comment.getText().toString().equals("") ||
                             holder.et_comment.getText().toString().isEmpty()){
                         new SnackbarIps(holder.et_comment,"Enter Comments");
-                    }else {
+                    } else {
                         myDialog = DialogsUtils.showProgressDialog(mActivity, "Update Leave Approval");
                         myDialog.show();
                         myDialog.setCanceledOnTouchOutside(true);
-
                         try {
                             allItems.put("RecID",returnValue.get(holder.getAdapterPosition()).getRecID());
                             allItems.put("AttID",returnValue.get(holder.getAdapterPosition()).getAttID());
@@ -373,7 +371,6 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
                             Log.e("allItems ", allItems.toString());
 
                             Call<ApplyLeaveRes> applyLeaveResCall = apiInterface.doUpdateLeave(jsonObject);
-
                             applyLeaveResCall.enqueue(new Callback<ApplyLeaveRes>() {
                                 @Override
                                 public void onResponse(@NonNull Call<ApplyLeaveRes> call,@NonNull Response<ApplyLeaveRes> response) {
@@ -395,7 +392,6 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
                                         myDialog.dismiss();
                                     }
                                 }
-
                                 @Override
                                 public void onFailure(@NonNull Call<ApplyLeaveRes> call,@NonNull Throwable t) {
                                     new SnackbarIps(holder.et_comment,"Internet or Server Error");
@@ -406,7 +402,6 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
                                     }
                                 }
                             });
-
                         }catch (NullPointerException | NumberFormatException e){
                             if (myDialog!=null && myDialog.isShowing()) {
                                 myDialog.dismiss();
@@ -502,30 +497,9 @@ public class AttendanceApproval extends AppCompatActivity implements View.OnClic
                 }
             };
         }
-
-    }
-
-    public void showHourPicker(final TextView textView) {
-
-        final Calendar c = Calendar.getInstance();
-        int mHour = c.get(Calendar.HOUR_OF_DAY);
-        int mMinute = c.get(Calendar.MINUTE);
-
-        // Launch Time Picker Dialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
-                        textView.setText(parseDateToday(hourOfDay + ":" + minute));
-                    }
-                }, mHour, mMinute, false);
-        timePickerDialog.show();
     }
 
     CustomAdapter customAdapter;
-
     public class StatusType extends AsyncTask<String, String, String> implements GlobalData {
 
         Spinner spinner;

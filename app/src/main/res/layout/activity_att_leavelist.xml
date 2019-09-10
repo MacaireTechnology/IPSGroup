@@ -52,7 +52,7 @@
             android:padding="6dp"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:text="@string/select_leave_type"
+            android:text="@string/select_status"
             android:textColor="@color/gray" />
         <Spinner
             android:textSize="14sp"
@@ -71,7 +71,6 @@
         android:padding="5dp"
         android:text="@string/comments"
         android:textColor="@color/lightblue" />
-
     <EditText
         android:textSize="14sp"
         android:layout_margin="8dp"
@@ -86,7 +85,6 @@
         android:maxLength="120"
         android:maxLines="3"
         android:padding="10dp" />
-
     <uihelper.ripple.MaterialRippleLayout
         android:layout_margin="10dp"
         android:padding="10dp"
@@ -113,7 +111,6 @@
             android:text="@string/submit"
             android:textColor="@color/white" />
     </uihelper.ripple.MaterialRippleLayout>
-
 </LinearLayout>
 
 

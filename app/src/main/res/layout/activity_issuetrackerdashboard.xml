@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -24,10 +25,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/blue"
+                android:background="@color/light_gray"
                 android:gravity="start">
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
                     android:id="@+id/tv_leave_calendar"
@@ -35,53 +37,33 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="8dp"
+                    android:padding="6dp"
                     android:text="@string/calendaricon_color"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_lvstatus_date"
+                    android:id="@+id/tv_apply_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="8dp"
+                    android:padding="6dp"
                     android:text="@string/_2019_8_17"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
-            <LinearLayout
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+            <TextView
+                android:id="@+id/tv_status_type"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/green"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/status"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_leave_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/checkmarkicon_color"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="@string/status"
+                android:textColor="@color/white"
+                android:background="@color/green_"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
         <LinearLayout
@@ -89,51 +71,100 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Department"
-                android:textColor="@color/lightblue" />
-
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/light_white"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/department"
+                        android:textColor="@color/light_gray"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                    <TextView
+                        android:id="@+id/tv_department"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_cl"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/department"
+                        android:textColor="@color/light_gray"
+                        android:textSize="12sp"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/light_white"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/query_type"
+                        android:textColor="@color/light_gray"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                    <TextView
+                        android:id="@+id/tv_query_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_cl"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/query_type"
+                        android:textColor="@color/light_gray"
+                        android:textSize="12sp"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:padding="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
                 <TextView
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edt_bg_rect"
-                    android:focusable="false"
-                    android:maxLines="3"
-                    android:padding="10dp"
-                    android:text="department here" />
+                    android:layout_gravity="center"
+                    android:background="@color/light_white"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/description"
+                    android:textColor="@color/light_gray"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_cl"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/description"
+                    android:textColor="@color/light_gray"
+                    android:textSize="12sp"
+                    tools:ignore="SmallSp" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Description"
-                android:textColor="@color/lightblue" />
-
-            <TextView
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:id="@+id/tv_lvstatus_cmts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edt_bg_rect"
-                android:focusable="false"
-                android:maxLines="3"
-                android:padding="10dp"
-                android:text="description here" />
-
         </LinearLayout>
-
+    </LinearLayout>
 </android.support.v7.widget.CardView>
-
-
-

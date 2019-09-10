@@ -872,7 +872,7 @@ public class SubmissionForm extends AppCompatActivity implements View.OnClickLis
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
             String formattedDate = df.format(c);
 
-            allItems.put("EmpID", SharedPreference.getDefaults(this,TAG_ACCESS_KEY));
+            allItems.put("EmpID", SharedPreference.getDefaults(this,TAG_EMP_ID));
             allItems.put("CustMobileNo", mobile_no);
             allItems.put("NameOfOutlet", "NameOfOutlet");
             allItems.put("ContactPerson", contactPerson);

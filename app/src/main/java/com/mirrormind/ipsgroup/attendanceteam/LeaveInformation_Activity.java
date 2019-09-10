@@ -54,6 +54,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uihelper.SnackbarIps;
 import uihelper.icomoon.Icomoon;
+import uihelper.onKeyboard.OnKeyboardHide;
+import uihelper.picker.OnCurrentDay;
 import uihelper.sharedPref.GlobalData;
 import uihelper.sharedPref.SharedPreference;
 
@@ -104,6 +106,9 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
         ed_app_leave.setOnClickListener(this);
         tv_apply_leave.setOnClickListener(this);
 
+        tv_from_date.setText(OnCurrentDay.getDateTime());
+        tv_to_date.setText(OnCurrentDay.getDateTime());
+
         spinner_leave_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -151,12 +156,13 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
                 }
                 break;
             case R.id.tv_from_date:
-                datepicker();
+                datePicker(1);
                 break;
             case R.id.tv_to_date:
-                datepicker1();
+                datePicker(2);
                 break;
             case R.id.tv_apply_leave:
+                new OnKeyboardHide(this,view);
                 doLoginCondition();
                 break;
             case R.id.tv_back:
@@ -173,7 +179,7 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
             new SnackbarIps(tv_apply_leave, "Please Select To Date");
         } else if (ed_app_leave.getText().toString().equals("")) {
             new SnackbarIps(tv_apply_leave, "Please Enter Leave Comments");
-            Log.e("ed_app_leave ", ed_app_leave.toString());
+            Log.e("et_app_leave ", ed_app_leave.toString());
         } else {
             doCallAccessKey();
             myDialog = DialogsUtils.showProgressDialog(LeaveInformation_Activity.this, "Applying leave");
@@ -236,7 +242,9 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
 
     private void doCallLeaveReq() {
 
-        Call<LeaveReqRes> leaveReqResCall = apiInterface.dorequestleavestatus(SharedPreference.getDefaults(getApplicationContext(), GlobalData.TAG_EMP_ID));
+        Call<LeaveReqRes> leaveReqResCall = apiInterface.dorequestleavestatus(SharedPreference.getDefaults(this,
+                GlobalData.TAG_EMP_ID));
+//        Call<LeaveReqRes> leaveReqResCall = apiInterface.dorequestleavestatus("7");
         leaveReqResCall.enqueue(new Callback<LeaveReqRes>() {
             @Override
             public void onResponse(@NonNull Call<LeaveReqRes> call,@NonNull Response<LeaveReqRes> response) {
@@ -248,6 +256,8 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
                             rv_leave_info.setLayoutManager(new GridLayoutManager(mActivity, 1));
                             rv_leave_info.setAdapter(new LeaveAdapter(mActivity, response.body().getReturnValue()));
                             Log.e("leavestatus", response.body().getReturnValue().get(0).getStatus());
+                        }else {
+                            myDialog.dismiss();
                         }
                     } else {
                         myDialog.dismiss();
@@ -266,7 +276,7 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
         });
     }
 
-    private void datepicker() {
+    private void datePicker(final int selectDay) {
         Calendar mcurrentDate = Calendar.getInstance();
         int mYear = mcurrentDate.get(Calendar.YEAR);
         int mMonth = mcurrentDate.get(Calendar.MONTH);
@@ -278,7 +288,13 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
                 myCalendar.set(Calendar.YEAR, selectedyear);
                 myCalendar.set(Calendar.MONTH, selectedmonth);
                 myCalendar.set(Calendar.DAY_OF_MONTH, selectedday);
-                updateLabel();
+                String myFormat = "yyyy-MM-dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                if (selectDay == 2){
+                    tv_to_date.setText(sdf.format(myCalendar.getTime()));
+                }else {
+                    tv_from_date.setText(sdf.format(myCalendar.getTime()));
+                }
             }
         }, mYear, mMonth, mDay);
         mDatePicker.setTitle("Select date");
@@ -286,44 +302,12 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
         mDatePicker.show();
     }
 
-    private void datepicker1() {
-        Calendar mcurrentDate = Calendar.getInstance();
-        int mYear = mcurrentDate.get(Calendar.YEAR);
-        int mMonth = mcurrentDate.get(Calendar.MONTH);
-        int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog mDatePicker = new DatePickerDialog(LeaveInformation_Activity.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        myCalendar.set(Calendar.YEAR, selectedyear);
-                        myCalendar.set(Calendar.MONTH, selectedmonth);
-                        myCalendar.set(Calendar.DAY_OF_MONTH, selectedday);
-                        updateLabe2();
-                    }
-                }, mYear, mMonth, mDay);
-        mDatePicker.setTitle("Select date");
-
-        mDatePicker.show();
-    }
-
-    private void updateLabel() {
-        String myFormat = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        tv_from_date.setText(sdf.format(myCalendar.getTime()));
-    }
-
-    private void updateLabe2() {
-        String myFormat = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        tv_to_date.setText(sdf.format(myCalendar.getTime()));
-    }
-
     private class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.MyViewHolder> {
 
         Activity mActivity;
         List<LeaveReqreturnvalue> leavetext;
 
-        public LeaveAdapter(Activity mActivity, List<LeaveReqreturnvalue> leavetext) {
+        private LeaveAdapter(Activity mActivity, List<LeaveReqreturnvalue> leavetext) {
             this.mActivity = mActivity;
             this.leavetext = leavetext;
         }
@@ -376,6 +360,15 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
             }else {
                 holder.tv_approval_cmt.setText("-");
             }
+
+            if (leavetext.get(position).getDescription()!=null &&
+                    !leavetext.get(position).getDescription().equals("") &&
+                    !leavetext.get(position).getDescription().isEmpty()){
+                holder.tv_leave_type.setText(leavetext.get(position).getDescription());
+            }else {
+                holder.tv_leave_type.setText("-");
+            }
+
             if (leavetext.get(position).getStatus()!=null &&
                     !leavetext.get(position).getStatus().equals("") &&
                     !leavetext.get(position).getStatus().isEmpty()){
@@ -398,12 +391,12 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
         }
 
 
-        public class MyViewHolder extends RecyclerView.ViewHolder {
+        private class MyViewHolder extends RecyclerView.ViewHolder {
 
             TextView tv_apply_date,tv_total_days,tv_to_date,tv_from_date,tv_approval_cmt,tv_down_icon,
-                    tv_leave_calendar,tv_status_type;
+                    tv_leave_calendar,tv_status_type,tv_leave_type;
 
-            public MyViewHolder(View itemView) {
+            private MyViewHolder(View itemView) {
                 super(itemView);
 
                 tv_apply_date = itemView.findViewById(R.id.tv_apply_date);
@@ -414,6 +407,7 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
                 tv_approval_cmt = itemView.findViewById(R.id.tv_approval_cmt);
                 tv_down_icon = itemView.findViewById(R.id.tv_down_icon);
                 tv_status_type = itemView.findViewById(R.id.tv_status_type);
+                tv_leave_type = itemView.findViewById(R.id.tv_leave_type);
 
                 Icomoon.imageLogo.apply(mActivity,tv_down_icon);
                 Icomoon.imageLogo.apply(mActivity,tv_leave_calendar);
@@ -421,7 +415,7 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
             }
         }
     }
-    public class LeaveType extends AsyncTask<String, String, String> implements GlobalData {
+    private class LeaveType extends AsyncTask<String, String, String> implements GlobalData {
 
         private LeaveType() {
         }
@@ -466,7 +460,6 @@ public class LeaveInformation_Activity extends AppCompatActivity implements View
             return null;
         }
     }
-
 
     public class CustomAdapter extends BaseAdapter {
 

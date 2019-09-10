@@ -23,6 +23,9 @@ public class LeaveReqreturnvalue {
     @SerializedName("Cmt")
     @Expose
     private String cmt;
+    @SerializedName("Description")
+    @Expose
+    private String description;
 
     public String getReqDate() {
         return reqDate;
@@ -70,5 +73,12 @@ public class LeaveReqreturnvalue {
 
     public void setCmt(String cmt) {
         this.cmt = cmt;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

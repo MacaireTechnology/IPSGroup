@@ -16,31 +16,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/cv_bottom_main">
-
             <include
                 layout="@layout/activity_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/cv_bottom_main" />
-
         <android.support.v7.widget.CardView
             android:id="@+id/cv_bottom_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-
                 <uihelper.ripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -52,7 +47,6 @@
                     app:mrl_rippleDelayClick="false"
                     app:mrl_rippleHover="true"
                     app:mrl_rippleOverlay="true">
-
                     <LinearLayout
                         android:id="@+id/ll_announce"
                         android:layout_width="match_parent"
@@ -61,14 +55,12 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="5dp">
-
                         <TextView
                             android:id="@+id/tv_announce_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/announcement_icon"
                             android:textSize="25sp" />
-
                         <TextView
                             android:id="@+id/tv_announce"
                             android:layout_width="wrap_content"
@@ -79,7 +71,6 @@
                             android:textSize="12sp" />
                     </LinearLayout>
                 </uihelper.ripple.MaterialRippleLayout>
-
                 <uihelper.ripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -91,7 +82,6 @@
                     app:mrl_rippleDelayClick="false"
                     app:mrl_rippleHover="true"
                     app:mrl_rippleOverlay="true">
-
                     <LinearLayout
                         android:id="@+id/ll_contact"
                         android:layout_width="match_parent"
@@ -100,15 +90,12 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="5dp">
-
                         <TextView
                             android:id="@+id/tv_contact_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:text="@string/contact_icon"
                             android:textSize="25sp" />
-
                         <TextView
                             android:id="@+id/tv_contact"
                             android:layout_width="wrap_content"
@@ -117,9 +104,7 @@
                             android:textColor="@color/lightblack"
                             android:textSize="12sp" />
                     </LinearLayout>
-
                 </uihelper.ripple.MaterialRippleLayout>
-
                 <uihelper.ripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -131,7 +116,6 @@
                     app:mrl_rippleDelayClick="true"
                     app:mrl_rippleHover="true"
                     app:mrl_rippleOverlay="true">
-
                     <LinearLayout
                         android:id="@+id/ll_home"
                         android:layout_width="match_parent"
@@ -140,14 +124,12 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="5dp">
-
                         <TextView
                             android:id="@+id/tv_home_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/home_icon"
                             android:textSize="25sp" />
-
                         <TextView
                             android:id="@+id/tv_home"
                             android:layout_width="wrap_content"
@@ -157,7 +139,6 @@
                             android:textSize="12sp" />
                     </LinearLayout>
                 </uihelper.ripple.MaterialRippleLayout>
-
                 <uihelper.ripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -169,7 +150,6 @@
                     app:mrl_rippleDelayClick="false"
                     app:mrl_rippleHover="true"
                     app:mrl_rippleOverlay="true">
-
                     <LinearLayout
                         android:id="@+id/ll_team"
                         android:layout_width="match_parent"
@@ -178,14 +158,12 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="5dp">
-
                         <TextView
                             android:id="@+id/tv_team_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/team_icon"
                             android:textSize="25sp" />
-
                         <TextView
                             android:id="@+id/tv_team"
                             android:layout_width="wrap_content"
@@ -193,10 +171,8 @@
                             android:text="@string/tv_team"
                             android:textColor="@color/lightblack"
                             android:textSize="12sp" />
-
                     </LinearLayout>
                 </uihelper.ripple.MaterialRippleLayout>
-
                 <uihelper.ripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -208,7 +184,6 @@
                     app:mrl_rippleDelayClick="false"
                     app:mrl_rippleHover="true"
                     app:mrl_rippleOverlay="true">
-
                     <LinearLayout
                         android:id="@+id/ll_profile"
                         android:layout_width="match_parent"
@@ -217,14 +192,12 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="5dp">
-
                         <TextView
                             android:id="@+id/tv_profile_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/myacc_icon"
                             android:textSize="25sp" />
-
                         <TextView
                             android:id="@+id/tv_profile"
                             android:layout_width="wrap_content"
@@ -235,10 +208,7 @@
                     </LinearLayout>
                 </uihelper.ripple.MaterialRippleLayout>
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
-
     </RelativeLayout>
-
 </RelativeLayout>
 

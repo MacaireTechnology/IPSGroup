@@ -9,13 +9,18 @@ import retrofit.response.LeaveReqRes;
 import retrofit.response.LoginRes;
 import retrofit.response.TrackRes;
 import retrofit.response.adjuest.AdjustList;
+import retrofit.response.admin.IssueTrackerRes;
 import retrofit.response.approval_attend.ApprovalAttendRes;
 import retrofit.response.contact.ContactRes;
 import retrofit.response.cutomerdata.CustomDataRes;
+import retrofit.response.dept.DeptRes;
+import retrofit.response.issueApproval.IssueApprovalListRes;
 import retrofit.response.leaveType.LeaveTypeRes;
 import retrofit.response.leave_approval.LeaveApprovalRes;
+import retrofit.response.queryType.QueryTypeRes;
 import retrofit.response.status_type.StatusTypeRes;
 import retrofit.response.subForm.SubFormRes;
+import retrofit.response.team.GetTeamRes;
 import retrofit.response.team_attend.TeamAttendRes;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -93,4 +98,36 @@ public interface ApiInterface {
 
     @GET("MyAccount/ReadContacts")
     Call<ContactRes> doContact();
+
+    @POST("IssueTracker/SaveIssueTracker")
+    Call<ApplyLeaveRes> doIssueTracker(@Body JsonObject body);
+
+    @GET("IssueTracker/GetIssueTrackerStatus")
+    Call<IssueTrackerRes> doListIssueTracker(@Query("IssueCreationID") String EmployeeID);
+
+    @GET("BindCombo/GetDepartment")
+    Call<DeptRes> doGetDepartment();
+
+    @GET("BindCombo/GetQueryType")
+    Call<QueryTypeRes> doQueryType();
+
+    @GET("IssueTracker/GetIssueTrackertData")
+    Call<IssueApprovalListRes> doGetIssueList(@Query("EmployeeID") String EmployeeID);
+
+    @POST("IssueTracker/SaveIssueTrackerApproval")
+    Call<ApplyLeaveRes> doSaveIssueTrack(@Body JsonObject body);
+
+    @GET("MyAccount/GetTeamDatas")
+    Call<GetTeamRes> doGetTeamData(@Query("EmpID") String EmpID);
+
+    @GET("MyAccount/ReadMyAccount")
+    Call<ContactRes> doProfile(@Query("EmpID") String EmpID);
+
+    @GET("submitsms.jsp")
+    Call<ContactRes> doSendOTP(@Query("user") String user,
+                               @Query("key") String key,
+                               @Query("mobile") String mobile,
+                               @Query("message") String message,
+                               @Query("senderid") String senderid,
+                               @Query("accusage") String accusage);
 }

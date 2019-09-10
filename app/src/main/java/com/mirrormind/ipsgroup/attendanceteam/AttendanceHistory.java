@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.mirrormind.ipsgroup.Dialog.DialogsUtils;
 import com.mirrormind.ipsgroup.R;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit.ApiClient;
 import retrofit.ApiInterface;
 import retrofit.response.ClockinRes;
@@ -70,6 +74,14 @@ public class AttendanceHistory extends AppCompatActivity implements GlobalData, 
         Icomoon.imageLogo.apply(this,tv_calendar_icon);
         Icomoon.imageLogo.apply(this,tv_user_icon);
         Icomoon.imageLogo.apply(this,tv_calendar_icon1);
+
+        if (SharedPreference.getDefaults(this,TAG_USER_NAME)!=null &&
+                !SharedPreference.getDefaults(this,TAG_USER_NAME).isEmpty() &&
+                !SharedPreference.getDefaults(this,TAG_USER_NAME).equals("")){
+            tv_user.setText(SharedPreference.getDefaults(this,TAG_USER_NAME));
+        }else {
+            tv_user.setText("-");
+        }
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -272,6 +284,34 @@ public class AttendanceHistory extends AppCompatActivity implements GlobalData, 
                         startActivity(new Intent(mActivity,AdjustTime.class));
                     }
                 });
+
+                if (clockenin_deatils.get(position).getClockInIMG()!= null &&
+                        !clockenin_deatils.get(position).getClockInIMG().equals("") &&
+                        !clockenin_deatils.get(position).getClockInIMG().isEmpty()) {
+                    Glide.with(mActivity).load(clockenin_deatils.get(position).getClockInIMG())
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_in_time);
+                } else {
+                    Glide.with(mActivity).load(R.drawable.placeholder_small)
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_in_time);
+                }
+
+                if (clockenin_deatils.get(position).getClockOutIMG()!= null &&
+                        !clockenin_deatils.get(position).getClockOutIMG().equals("") &&
+                        !clockenin_deatils.get(position).getClockOutIMG().isEmpty()) {
+                    Glide.with(mActivity).load(clockenin_deatils.get(position).getClockOutIMG())
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_out_time);
+                } else {
+                    Glide.with(mActivity).load(R.drawable.placeholder_small)
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_out_time);
+                }
             }
 
             @Override
@@ -284,6 +324,7 @@ public class AttendanceHistory extends AppCompatActivity implements GlobalData, 
                 TextView tv_time_in_icon,tv_time_in,tv_time_out_icon,tv_time_out,tv_time_in_loc,
                         tv_clock_in_loc_icon,tv_clock_in_loc,tv_time_out_loc,tv_clock_out_loc_icon,
                         tv_clock_out_loc,tv_adjust_icon;
+                CircleImageView civ_in_time,civ_out_time;
 
                 public MyViewHolder(View itemView) {
                     super(itemView);
@@ -299,6 +340,8 @@ public class AttendanceHistory extends AppCompatActivity implements GlobalData, 
                     tv_clock_out_loc_icon = itemView.findViewById(R.id.tv_clock_out_loc_icon);
                     tv_clock_out_loc = itemView.findViewById(R.id.tv_clock_out_loc);
                     tv_adjust_icon = itemView.findViewById(R.id.tv_adjust_icon);
+                    civ_in_time = itemView.findViewById(R.id.civ_in_time);
+                    civ_out_time = itemView.findViewById(R.id.civ_out_time);
 
                     Icomoon.imageLogo.apply(mActivity,tv_time_in_icon);
                     Icomoon.imageLogo.apply(mActivity,tv_time_out_icon);

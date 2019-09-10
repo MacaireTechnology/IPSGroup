@@ -20,13 +20,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.mirrormind.ipsgroup.Dialog.DialogsUtils;
 import com.mirrormind.ipsgroup.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit.ApiClient;
 import retrofit.ApiInterface;
 import retrofit.response.TrackRes;
@@ -38,8 +35,14 @@ import uihelper.SnackbarIps;
 import uihelper.icomoon.Icomoon;
 import uihelper.sharedPref.GlobalData;
 import uihelper.sharedPref.SharedPreference;
+import static uihelper.sharedPref.GlobalData.TAG_EMP_ID;
+import static uihelper.sharedPref.GlobalData.TAG_SHARE_EMP_ID;
+import static uihelper.sharedPref.GlobalData.TAG_SHARE_LAT;
+import static uihelper.sharedPref.GlobalData.TAG_SHARE_LONG;
+import static uihelper.sharedPref.GlobalData.TAG_SHARE_NAME;
 
-public class TrackTeam extends AppCompatActivity implements View.OnClickListener {
+public class TrackTeam extends AppCompatActivity implements View.OnClickListener,
+        GlobalData {
 
     Activity mActivity;
     TextView tv_back,tv_header_name,tv_no_data_found,tv_search_icon,tv_back_search;
@@ -129,7 +132,6 @@ public class TrackTeam extends AppCompatActivity implements View.OnClickListener
     }
 
     private void doCallTeam() {
-
         try {
             Call<TrackRes> trackTeamCall = apiInterface.dotrackteam(SharedPreference.getDefaults(getApplicationContext(),
                     GlobalData.TAG_EMP_ID));
@@ -236,10 +238,41 @@ class TeamAttendanceAdapter extends RecyclerView.Adapter<TeamAttendanceAdapter.M
         }else {
             holder.tv_teamlocation.setText("-");
         }
-
         holder.ll_option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (leavetext.get(holder.getAdapterPosition()).getLat()!=null &&
+                        !leavetext.get(holder.getAdapterPosition()).getLat().equals("") &&
+                        !leavetext.get(holder.getAdapterPosition()).getLat().isEmpty()){
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_LAT,leavetext.get(holder.getAdapterPosition()).getLat());
+                }else {
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_LAT,"0.00");
+                }
+
+                if (leavetext.get(holder.getAdapterPosition()).getLng()!=null &&
+                        !leavetext.get(holder.getAdapterPosition()).getLng().equals("") &&
+                        !leavetext.get(holder.getAdapterPosition()).getLng().isEmpty()){
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_LONG,leavetext.get(holder.getAdapterPosition()).getLng());
+                }else {
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_LONG,"0.00");
+                }
+
+                if (leavetext.get(holder.getAdapterPosition()).getEmpFullName()!=null &&
+                        !leavetext.get(holder.getAdapterPosition()).getEmpFullName().equals("") &&
+                        !leavetext.get(holder.getAdapterPosition()).getEmpFullName().isEmpty()){
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_NAME,leavetext.get(holder.getAdapterPosition()).getEmpFullName());
+                }else {
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_NAME,"0.00");
+                }
+
+                if (leavetext.get(holder.getAdapterPosition()).getEmpId()!=null &&
+                        !leavetext.get(holder.getAdapterPosition()).getEmpId().equals("") &&
+                        !leavetext.get(holder.getAdapterPosition()).getEmpId().isEmpty()){
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_EMP_ID,leavetext.get(holder.getAdapterPosition()).getEmpId());
+                }else {
+                    SharedPreference.setDefaults(mActivity,TAG_SHARE_EMP_ID,SharedPreference.getDefaults(mActivity,TAG_EMP_ID));
+                }
+
                 mActivity.startActivity(new Intent(mActivity,TeamMap.class));
             }
         });
@@ -302,7 +335,6 @@ class TeamAttendanceAdapter extends RecyclerView.Adapter<TeamAttendanceAdapter.M
                 filterResults.values = leavetext;
                 return filterResults;
             }
-
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 leavetext = (ArrayList<Trackreturnvalue>) filterResults.values;

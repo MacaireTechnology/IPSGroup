@@ -50,6 +50,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/iv_profile"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_gravity="center"
@@ -82,6 +83,7 @@
                     android:text="@string/mobile_no"
                     android:textSize="14sp" />
                 <TextView
+                    android:id="@+id/tv_mobile_no"
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,9 +94,25 @@
                     android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/email_id"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/some_person"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/designation"
                     android:textSize="14sp" />
                 <TextView
+                    android:id="@+id/tv_designation"
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,6 +126,7 @@
                     android:text="@string/department"
                     android:textSize="14sp" />
                 <TextView
+                    android:id="@+id/tv_department"
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,25 +134,13 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reporting_manager"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@string/some_person"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="@string/hr"
+                    android:text="@string/position"
                     android:textSize="14sp" />
                 <TextView
+                    android:id="@+id/tv_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"

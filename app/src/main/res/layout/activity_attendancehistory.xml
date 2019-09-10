@@ -38,7 +38,7 @@
             android:padding="8dp"
             android:text="@string/attendance_history"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -64,6 +64,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="@string/calendaricon_color"
+                android:textSize="14sp"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -75,7 +76,7 @@
                 android:padding="8dp"
                 android:text="@string/tv_calendar"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -94,7 +95,7 @@
                 android:padding="8dp"
                 android:text="@string/usericon_color"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -105,7 +106,7 @@
                 android:padding="8dp"
                 android:text="@string/tv_user"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

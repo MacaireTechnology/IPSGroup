@@ -17,7 +17,6 @@
         android:id="@+id/back_icon"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize">
-
         <LinearLayout
             android:id="@+id/ll_header"
             android:layout_width="match_parent"
@@ -29,27 +28,26 @@
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:text="@string/back_icon"
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_header_name"
                 android:layout_width="wrap_content"
-                android:layout_height="43dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:text="@string/adjust_attendance"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_gravity="center"
                 android:gravity="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:id="@+id/tv_search_icon"
                     android:layout_width="wrap_content"
@@ -61,14 +59,12 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
         </LinearLayout>
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
                 android:id="@+id/tv_back_search"
                 android:layout_width="wrap_content"
@@ -79,7 +75,6 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
             <EditText
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName"
@@ -93,7 +88,6 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </LinearLayout>
     <android.support.v7.widget.CardView
@@ -182,8 +176,6 @@
                         android:gravity="center"
                         android:text="@string/_10_00" />
                 </LinearLayout>
-
-
             </LinearLayout>
             <TextView
                 android:layout_margin="2dp"
@@ -192,7 +184,6 @@
                 android:padding="5dp"
                 android:text="@string/reason"
                 android:textColor="@color/lightblue" />
-
             <EditText
                 android:id="@+id/et_reason"
                 android:inputType="textPersonName"
@@ -228,7 +219,6 @@
                     android:text="@string/apply"
                     android:textColor="@color/white" />
             </uihelper.ripple.MaterialRippleLayout>
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.RecyclerView

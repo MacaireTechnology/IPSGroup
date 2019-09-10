@@ -104,6 +104,7 @@ import java.util.Locale;
 
 import db.ClockInOutTime;
 import db.DatabaseHelper;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit.ApiClient;
 import retrofit.ApiInterface;
 import retrofit.response.ClockinRes;
@@ -563,7 +564,7 @@ public class Fingerprint_Activity extends Activity implements View.OnClickListen
 
         try {
             SharedPreference.setDefaults(mActivity,TAG_CURR_LAT,String.valueOf(latitude));
-            SharedPreference.setDefaults(mActivity,TAG_CURR_LONG,String.valueOf(latitude));
+            SharedPreference.setDefaults(mActivity,TAG_CURR_LONG,String.valueOf(logitude));
             SharedPreference.setDefaults(mActivity,TAG_CURR_GPS_TIME,DateFormat.getTimeInstance().format(location.getTime()));
         }catch (NumberFormatException | NullPointerException e){
             e.printStackTrace();
@@ -769,6 +770,34 @@ public class Fingerprint_Activity extends Activity implements View.OnClickListen
                     holder.tv_clock_out_loc.setText("-");
                 }
 
+                if (clockenin_deatils.get(position).getClockInIMG()!= null &&
+                        !clockenin_deatils.get(position).getClockInIMG().equals("") &&
+                        !clockenin_deatils.get(position).getClockInIMG().isEmpty()) {
+                    Glide.with(mActivity).load(clockenin_deatils.get(position).getClockInIMG())
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_in_time);
+                } else {
+                    Glide.with(mActivity).load(R.drawable.placeholder_small)
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_in_time);
+                }
+
+                if (clockenin_deatils.get(position).getClockOutIMG()!= null &&
+                        !clockenin_deatils.get(position).getClockOutIMG().equals("") &&
+                        !clockenin_deatils.get(position).getClockOutIMG().isEmpty()) {
+                    Glide.with(mActivity).load(clockenin_deatils.get(position).getClockOutIMG())
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_out_time);
+                } else {
+                    Glide.with(mActivity).load(R.drawable.placeholder_small)
+                            .placeholder(R.drawable.placeholder_small)
+                            .error(R.drawable.placeholder_small)
+                            .dontAnimate().centerCrop().into(holder.civ_out_time);
+                }
+
                 holder.tv_adjust_icon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -809,6 +838,7 @@ public class Fingerprint_Activity extends Activity implements View.OnClickListen
                 TextView tv_time_in_icon,tv_time_in,tv_time_out_icon,tv_time_out,tv_time_in_loc,
                         tv_clock_in_loc_icon,tv_clock_in_loc,tv_time_out_loc,tv_clock_out_loc_icon,
                         tv_clock_out_loc,tv_adjust_icon;
+                CircleImageView civ_in_time,civ_out_time;
 
                 private MyViewHolder(View itemView) {
                     super(itemView);
@@ -824,6 +854,8 @@ public class Fingerprint_Activity extends Activity implements View.OnClickListen
                     tv_clock_out_loc_icon = itemView.findViewById(R.id.tv_clock_out_loc_icon);
                     tv_clock_out_loc = itemView.findViewById(R.id.tv_clock_out_loc);
                     tv_adjust_icon = itemView.findViewById(R.id.tv_adjust_icon);
+                    civ_in_time = itemView.findViewById(R.id.civ_in_time);
+                    civ_out_time = itemView.findViewById(R.id.civ_out_time);
 
                     Icomoon.imageLogo.apply(mActivity,tv_time_in_icon);
                     Icomoon.imageLogo.apply(mActivity,tv_time_out_icon);

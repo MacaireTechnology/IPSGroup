@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mirrormind.ipsgroup.SplashActivity;
+import com.mirrormind.ipsgroup.backgroundservice.NotificationService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +39,7 @@ import retrofit.response.ApplyLeaveRes;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uihelper.picker.OnCurrentDay;
 import uihelper.sharedPref.GlobalData;
 import uihelper.sharedPref.SharedPreference;
 import static junit.framework.Assert.assertFalse;
@@ -46,8 +49,8 @@ public class AlarmReceiver_sec extends BroadcastReceiver implements GlobalData, 
         ResultCallback<Status>, OnMapReadyCallback {
 
     public static final String TAG= AlarmReceiver_sec.class.getSimpleName();
-    private LocationManager locationManager;
     Context mContext;
+    private LocationManager locationManager;
     public double latitude = 0.0, logitude = 0.0;
     String address2="",split_city="";
     ApiInterface apiInterface;
@@ -124,7 +127,41 @@ public class AlarmReceiver_sec extends BroadcastReceiver implements GlobalData, 
         wl.release();
         doTestWakeLock(wl);
 
-        doApiCallLatLong();
+        onCheckCondition();
+    }
+
+    private void onCheckCondition() {
+
+        if (SharedPreference.getDefaults(mContext,TAG_LAST_PUNCH_TIME)!=null &&
+                !SharedPreference.getDefaults(mContext,TAG_LAST_PUNCH_TIME).equals("") &&
+                !SharedPreference.getDefaults(mContext,TAG_LAST_PUNCH_TIME).isEmpty()){
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm",Locale.getDefault());
+                Date startDate = simpleDateFormat.parse(SharedPreference.getDefaults(mContext,TAG_LAST_PUNCH_TIME));
+                Date endDate = simpleDateFormat.parse(OnCurrentDay.getTime());
+
+                long difference = endDate.getTime() - startDate.getTime();
+                if(difference<0) {
+                    Date dateMax = simpleDateFormat.parse("24:00");
+                    Date dateMin = simpleDateFormat.parse("00:00");
+                    difference=(dateMax.getTime() -startDate.getTime() )+(endDate.getTime()-dateMin.getTime());
+                }
+                int days = (int) (difference / (1000*60*60*24));
+                int hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+                int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+
+                if (min>20 || hours>0) {
+                    doApiCallLatLong();
+                }else {
+                    Log.e(TAG,"ELSE PART");
+                }
+                Log.e("log_tag","Hours: "+hours+", Mins: "+min);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
+        }else {
+            doApiCallLatLong();
+        }
 
     }
 
@@ -154,14 +191,18 @@ public class AlarmReceiver_sec extends BroadcastReceiver implements GlobalData, 
                     if (response.code() == 200){
                         assert response.body() != null;
                         if (response.body().getStatusCode().equals("00")){
-//                            setUpNotification();
+                            setUpNotification();
+                            Intent serviceIntent = new Intent(mContext, NotificationService.class);
+                            serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
+                            ContextCompat.startForegroundService(mContext, serviceIntent);
+                            SharedPreference.setDefaults(mContext,TAG_LAST_PUNCH_TIME,OnCurrentDay.getTime());
                             Log.e(TAG,"Register GPS Address");
                         }else {
-//                            setUpNotification();
+                            setUpNotification();
                             Log.e(TAG,"Not Register GPS Address");
                         }
                     }else {
-//                        setUpNotification();
+                        setUpNotification();
                         Log.e(TAG,"Server Error");
                     }
 
@@ -169,18 +210,18 @@ public class AlarmReceiver_sec extends BroadcastReceiver implements GlobalData, 
                 @Override
                 public void onFailure(@NonNull Call<ApplyLeaveRes> call,@NonNull Throwable t) {
                     Log.e(TAG,"Internet or Server Error");
-//                    setUpNotification();
+                    setUpNotification();
                 }
             });
         } catch (JSONException e) {
             e.printStackTrace();
-//            setUpNotification();
+            setUpNotification();
         }catch (NumberFormatException | NullPointerException e){
             e.printStackTrace();
-//            setUpNotification();
+            setUpNotification();
         }catch (Exception e){
             e.printStackTrace();
-//            setUpNotification();
+            setUpNotification();
         }
     }
 
@@ -215,7 +256,7 @@ public class AlarmReceiver_sec extends BroadcastReceiver implements GlobalData, 
                 + "\n Longitude: " + location.getLongitude());
         try {
             SharedPreference.setDefaults(mContext,TAG_CURR_LAT,String.valueOf(latitude));
-            SharedPreference.setDefaults(mContext,TAG_CURR_LONG,String.valueOf(latitude));
+            SharedPreference.setDefaults(mContext,TAG_CURR_LONG,String.valueOf(logitude));
         }catch (NumberFormatException | NullPointerException e){
             e.printStackTrace();
         }catch (Exception e){
